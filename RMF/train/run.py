@@ -102,15 +102,15 @@ def train_multiagent_single_process(args: Config):
         progress = min(1.0, evaluator.total_step / break_step)
         # 熵权重：前期高探索，后期低探索
         # k1 = 0.015 * (1 - 0.5 * progress**0.7)
-        k1 = 0.015 * (1 - 0.4 * progress**0.5)
+        k1 = 0.013 * (1 - 0.5 * progress ** 0.6)
         # 相似度权重：前期低约束
         # k2 = min(0.0025, 0.001 * (1 + 2.0 * progress))
-        if progress < 0.4:
+        if progress < 0.3:
             k2 = 0.0008
-        elif progress < 0.75:
+        elif progress < 0.7:
             k2 = 0.0015
         else:
-            k2 = 0.0035
+            k2 = 0.003
         if if_off_policy:
             buffer.update(buffer_items)
         else:
